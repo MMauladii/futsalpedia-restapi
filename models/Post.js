@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const noteSchema = mongoose.Schema({
+const postSchema = mongoose.Schema({
     content: {
         type: String,
         required: true
@@ -7,6 +7,10 @@ const noteSchema = mongoose.Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref:'User',
+        required: true
+    },
+    foto: {
+        type: String,
         required: true
     },
     created_date: {
@@ -21,4 +25,4 @@ const noteSchema = mongoose.Schema({
     versionKey:false
 })
 
-module.exports = mongoose.model('Note', noteSchema,'note')
+module.exports = mongoose.model('Post', postSchema,'post')

@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const Note = require('../models/Note')
+const Post = require('../models/Post')
 
 function result(succ,msg,details){
     if(details){
@@ -20,7 +20,7 @@ function result(succ,msg,details){
 
 router.get('/',async(req,res)=>{
     try {
-        const note = await Note.aggregate([
+        const post = await Post.aggregate([
             {
                 $lookup: {
                     from: 'user',
@@ -45,8 +45,8 @@ router.get('/',async(req,res)=>{
             }
         ]);
 
-        if(note.length > 0 ){
-            res.status(200).json(result(1,'Retreive Data Success!', note))
+        if(post.length > 0 ){
+            res.status(200).json(result(1,'Retreive Data Success!', post))
         }else{
             res.status(200).json(result(0,'Tidak ada data!'))
         }
@@ -58,13 +58,14 @@ router.get('/',async(req,res)=>{
 })
 
 router.post('/',async (req,res)=>{
-    const inputNote = new Note({
+    const inputPost = new Post({
         content: req.body.content,
-        user_id: req.body.user_id
+        user_id: req.body.user_id,
+        foto : req.body.foto
     })
 
     try{
-        const note = await inputNote.save()
+        const post = await inputPost.save()
         res.status(200).json(result(1,'Insert Post Success!'))
     }catch(error){
            res.status(500).json(result(0, error.message))
@@ -75,13 +76,14 @@ router.put('/',async(req,res)=>{
     const data = {
         id: req.body.id,
         content : req.body.content,
+        foto : req.body.foto,
         modified_date: Date.now()
     }
     try{
-        const note = await Note.updateOne({
+        const post = await Post.updateOne({
             _id: data.id
         },data)
-        if(note.matchedCount>0){
+        if(Post.matchedCount>0){
             res.status(200).json(result(1,'Update Post Success!'))
         }else{
             res.status(200).json(result(0,'Update Post Failed!'))
@@ -93,11 +95,11 @@ router.put('/',async(req,res)=>{
 
 router.delete('/:id',async(req,res)=>{
     try{
-        const note = await Note.deleteOne({
+        const post = await Post.deleteOne({
             _id: req.params.id
         })
 
-        if(note.deletedCount>0){
+        if(post.deletedCount>0){
             res.status(200).json(result(1,'Delete Post Success!'))
         }else{
             res.status(200).json(result(0,'Delete Post Failed!'))

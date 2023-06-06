@@ -9,6 +9,10 @@ const dataSchema = mongoose.Schema({
         ref:'User',
         required: true
     },
+    foto: {
+        type: String,
+        required: true    
+    },
     created_date: {
         type: Date,
         default: Date.now
