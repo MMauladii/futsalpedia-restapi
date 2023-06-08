@@ -84,9 +84,9 @@ router.put('/',async(req,res)=>{
             _id: data.id
         },data)
         if(Post.matchedCount>0){
-            res.status(200).json(result(1,'Update Post Success!'))
+            res.status(200).json(result(1,'Update Post Failed!'))
         }else{
-            res.status(200).json(result(0,'Update Post Failed!'))
+            res.status(200).json(result(0,'Update Post Success!'))
         }
     }catch(error){
         res.status(500).json(result(0, error.message))
