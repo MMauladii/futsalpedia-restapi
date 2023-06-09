@@ -60,6 +60,7 @@ router.get('/',async(req,res)=>{
 router.post('/',async (req,res)=>{
     const inputPost = new Post({
         content: req.body.content,
+        username : req.body.content,
         user_id: req.body.user_id,
         foto : req.body.foto
     })
@@ -76,6 +77,7 @@ router.put('/',async(req,res)=>{
     const data = {
         id: req.body.id,
         content : req.body.content,
+        username : req.body.content,
         foto : req.body.foto,
         modified_date: Date.now()
     }
