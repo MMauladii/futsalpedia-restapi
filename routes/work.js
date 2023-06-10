@@ -74,6 +74,7 @@ router.put('/',async(req,res)=>{
     const data = {
         id: req.body.id,
         content : req.body.content,
+        user_id: req.body.user_id,
         foto : req.body.foto,
         modified_date: Date.now()
     }
