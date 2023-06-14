@@ -4,6 +4,10 @@ const postSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    nama_lapangan: {
+        type: String,
+        required: true
+    },
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref:'User',
